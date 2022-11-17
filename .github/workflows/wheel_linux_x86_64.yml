@@ -75,6 +75,8 @@ jobs:
           cd -
 
       - name: Build Kokkos core library
+        env:
+          OMP_NUM_THREADS: 2
         if: steps.kokkos-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p /root/Kokkos_install/${{ matrix.exec_model }}
@@ -92,6 +94,8 @@ jobs:
           cd -
 
       - name: Build Kokkos kernels library
+        env:
+          OMP_NUM_THREADS: 2
         if: steps.kokkos-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p /root/Kokkos_install/${{ matrix.exec_model }}
