@@ -123,6 +123,10 @@ if not os.getenv("READTHEDOCS"):
             else:
                 if platform.system() != "Linux":
                     raise RuntimeError(f"Unsupported '{platform.system()}' platform")
+                else:
+                    if os.environ.get("USE_OMP"):
+                        configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
+                        configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
 
             if not Path(self.build_temp).exists():
                 os.makedirs(self.build_temp)
