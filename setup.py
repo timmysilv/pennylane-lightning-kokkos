@@ -86,7 +86,8 @@ if not os.getenv("READTHEDOCS"):
                 ]
 
             build_args = []
-            if os.getenv("BACKEND") and not self.backend:
+            #if os.getenv("BACKEND") and not self.backend:
+            if os.getenv("BACKEND"):# and not self.backend:
                 self.backend = os.getenv("BACKEND")
             if os.getenv("ARCH") and not self.arch:
                 self.arch = os.getenv("ARCH")
