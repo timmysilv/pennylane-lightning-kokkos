@@ -172,6 +172,8 @@ jobs:
 
           CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
 
+          READTHEDOCS: 1
+          
           BACKEND: "OPENMP"
 
           # Testing of built wheels
