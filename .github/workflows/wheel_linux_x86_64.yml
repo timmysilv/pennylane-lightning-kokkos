@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies (Ubuntu)
         if: ${{ (matrix.container_img == 'ubuntu-latest') && (steps.kokkos-cache.outputs.cache-hit != 'true') }}
         run: |
-          apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y -q install cmake gcc-$GCC_VERSION g++-$GCC_VERSION ninja-build git
+          apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y -q install cmake gcc-$GCC_VERSION g++-$GCC_VERSION ninja-build git libomp5 libomp-dev
           echo "COMPILER=g++-11" >> $GITHUB_ENV
 
       - name: Install dependencies (CentOS)
@@ -171,6 +171,8 @@ jobs:
             source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
+
+          OMP_NUM_THREADS: 2
 
           READTHEDOCS: 1
           
