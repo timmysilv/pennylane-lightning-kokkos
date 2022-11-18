@@ -93,7 +93,7 @@ class CMakeBuild(build_ext):
         if os.getenv("ARCH") and not self.arch:
             self.arch = os.getenv("ARCH")
 
-        self.backend = "OPENMP"
+        #self.backend = "OPENMP"
 
         if self.backend:
             if self.backend in self.backends:
