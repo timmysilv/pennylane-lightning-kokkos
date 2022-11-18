@@ -178,8 +178,6 @@ jobs:
 
           OMP_NUM_THREADS: 2
 
-          READTHEDOCS: 1
-
           USE_OMP: 1
           
           BACKEND: "OPENMP"
