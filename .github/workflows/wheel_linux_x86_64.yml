@@ -157,8 +157,6 @@ jobs:
         env:
           CIBW_ARCHS_LINUX: ${{matrix.arch}}
 
-          USE_OMP: 1
-
           CIBW_BUILD: ${{ matrix.cibw_build }}
 
           CIBW_SKIP: "*-musllinux*"
@@ -172,7 +170,9 @@ jobs:
             yum install devtoolset-11-gcc-c++ -y
             source /opt/rh/devtoolset-11/enable -y
 
-          CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
+          CIBW_ENVIRONMENT: |
+            PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
+            USE_OMP = "1"
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
 
