@@ -124,7 +124,7 @@ class CMakeBuild(build_ext):
             if platform.system() != "Linux":
                 raise RuntimeError(f"Unsupported '{platform.system()}' platform")
             else:
-                if os.environ.get("USE_OMP"):
+                if os.environ.get("USE_OMP")=='1':
                     configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
                     configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
 
