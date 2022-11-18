@@ -3,6 +3,8 @@ name: Set wheel build matrix
 env:
   PYTHON3_MIN_VERSION: "7"
   PYTHON3_MAX_VERSION: "10"
+  BACKEND: 'OPENMP'
+
 
 on:
   workflow_call:
@@ -50,7 +52,7 @@ jobs:
 
       - name: Kokkos execution strategy
         id: exec_model
-        run: echo "::set-output name=exec_model::[\"OPENMP\"]" # We may also adopt [OPENMP, THREADS] in later iterations
+        run: echo "::set-output name=exec_model::[${{ env.BACKEND }}]" # We may also adopt [OPENMP, THREADS] in later iterations
 
       - name: Kokkos version
         id: kokkos_version

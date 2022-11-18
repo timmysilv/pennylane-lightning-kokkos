@@ -94,6 +94,10 @@ class CMakeBuild(build_ext):
             self.arch = os.getenv("ARCH")
 
         #self.backend = "OPENMP"
+        if os.getenv('CI'):
+            print('Looks like GitHub!')
+        else:
+            print('Maybe running locally?')
 
         if self.backend:
             if self.backend in self.backends:
