@@ -79,8 +79,6 @@ jobs:
           cd -
 
       - name: Build Kokkos core library
-        env:
-          OMP_NUM_THREADS: 2
         if: steps.kokkos-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p /root/Kokkos_install/${{ matrix.exec_model }}
@@ -98,8 +96,6 @@ jobs:
           cd -
 
       - name: Build Kokkos kernels library
-        env:
-          OMP_NUM_THREADS: 2
         if: steps.kokkos-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p /root/Kokkos_install/${{ matrix.exec_model }}
@@ -176,6 +172,7 @@ jobs:
             yum clean all -y
             yum install centos-release-scl-rh -y
             yum install devtoolset-11-gcc-c++ -y
+            yum install libgomp -y
             source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
