@@ -86,8 +86,8 @@ class CMakeBuild(build_ext):
             ]
 
         build_args = []
-        if os.getenv('USE_OMP'):# and not self.backend:
-            self.backend = "OPENMP"#os.getenv("BACKEND")
+        if os.environ.get('USE_OMP'):# and not self.backend:
+            self.backend = 'OPENMP'#os.getenv("BACKEND")
             configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
             print(self.backend)
         if os.getenv("ARCH") and not self.arch:
@@ -127,6 +127,10 @@ class CMakeBuild(build_ext):
                 configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"]
         elif platform.system() == "Windows":
             configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"] # only build with Clang under Windows
+        elif platform.system() == "Linux":
+            if os.environ.get("USE_OMP"):
+                configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
+                configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
         else:
             if platform.system() != "Linux":
                 raise RuntimeError(f"Unsupported '{platform.system()}' platform")
