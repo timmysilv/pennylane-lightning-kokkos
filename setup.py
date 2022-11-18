@@ -128,7 +128,7 @@ class CMakeBuild(build_ext):
         elif platform.system() == "Windows":
             configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"] # only build with Clang under Windows
         elif platform.system() == "Linux":
-            if os.environ.get("USE_OMP") == "1":
+            if os.environ.get('USE_OMP'):
                 configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
                 configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
         else:
