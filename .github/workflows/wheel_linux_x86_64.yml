@@ -1,22 +1,18 @@
 name: Wheel::Linux::x86_64
 
 # **What it does**: Builds python wheels for Linux (ubuntu-latest) architecture x86_64 and store it as artifacts.
-#                   Python versions: 3.7, 3.8, 3.9, 3.10.
-# **Why we have it**: To build wheels for pennylane-lightning-kokkos installation.
+#                   Python versions: 3.7, 3.8, 3.9, 3.10, 3.11.
+# **Why we have it**: To build wheels for pennylane-lightning installation.
 # **Who does it impact**: Wheels to be uploaded to PyPI.
 
 env:
   GCC_VERSION: 11
-  OMP_NUM_THREADS: "2"
-  READTHEDOCS: "0"
-  USE_OMP: "1"       
-  #BACKEND: 'OPENMP'
 
 on:
   pull_request:
   push:
     branches:
-      - master
+      - main
   release:
     types: [published]
 
@@ -56,7 +52,7 @@ jobs:
       - name: Install dependencies (Ubuntu)
         if: ${{ (matrix.container_img == 'ubuntu-latest') && (steps.kokkos-cache.outputs.cache-hit != 'true') }}
         run: |
-          apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y -q install cmake gcc-$GCC_VERSION g++-$GCC_VERSION ninja-build git libomp5 libomp-dev
+          apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y -q install cmake gcc-$GCC_VERSION g++-$GCC_VERSION ninja-build git
           echo "COMPILER=g++-11" >> $GITHUB_ENV
 
       - name: Install dependencies (CentOS)
@@ -172,11 +168,9 @@ jobs:
             yum clean all -y
             yum install centos-release-scl-rh -y
             yum install devtoolset-11-gcc-c++ -y
-            yum install libgomp -y
             source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
-
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
 
@@ -184,12 +178,14 @@ jobs:
             pip install git+https://github.com/PennyLaneAI/pennylane.git@master
 
           CIBW_TEST_COMMAND: |
-            pl-device-test --device=lightning.kokkos --skip-ops -x --tb=short --no-flaky-report
+            pl-device-test --device=lightning.qubit --skip-ops -x --tb=short --no-flaky-report
 
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
           CIBW_BUILD_VERBOSITY: 3
-          
+
+          USE_OMP: 1
+
         run: python3.8 -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions-ecosystem/action-regex-match@v2
@@ -213,7 +209,7 @@ jobs:
         with:
           name: Linux-wheels-x86_64.zip
           path: dist
-            
+
       - name: Upload wheels to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
