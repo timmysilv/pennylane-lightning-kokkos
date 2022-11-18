@@ -7,6 +7,10 @@ name: Wheel::Linux::x86_64
 
 env:
   GCC_VERSION: 11
+  OMP_NUM_THREADS: 2
+  READTHEDOCS: 0
+  USE_OMP: 1        
+  BACKEND: "OPENMP"
 
 on:
   pull_request:
@@ -175,14 +179,6 @@ jobs:
             source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
-
-          OMP_NUM_THREADS: 2
-
-          READTHEDOCS: 0
-
-          USE_OMP: 1
-          
-          BACKEND: "OPENMP"
 
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
