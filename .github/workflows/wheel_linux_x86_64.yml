@@ -172,7 +172,6 @@ jobs:
 
           CIBW_ENVIRONMENT: |
             PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH
-            USE_OMP = "1"
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
 
@@ -186,7 +185,9 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 3
 
-        run: python3.8 -m cibuildwheel --output-dir wheelhouse
+        run: |
+          echo "USE_OMP=1" >> $GITHUB_ENV
+          python3.8 -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions-ecosystem/action-regex-match@v2
         id: rc_build
