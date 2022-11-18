@@ -88,7 +88,7 @@ jobs:
                           -DKokkos_ENABLE_${{ matrix.exec_model }}=ON \
                           -DKokkos_ENABLE_DEPRECATION_WARNINGS=OFF \
                           -DCMAKE_CXX_COMPILER=${{ env.COMPILER }} \
-                          -DCMAKE_CXX_STANDARD=20 \
+                          -DCMAKE_CXX_STANDARD=17 \
                           -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
                           -G Ninja
           cmake --build ./Build --verbose
@@ -103,7 +103,7 @@ jobs:
           cmake -BBuild . -DCMAKE_INSTALL_PREFIX=/root/Kokkos_install/${{ matrix.exec_model }} \
                           -DKokkos_ENABLE_${{ matrix.exec_model }}=ON \
                           -DCMAKE_CXX_COMPILER=${{ env.COMPILER }} \
-                          -DCMAKE_CXX_STANDARD=20 \
+                          -DCMAKE_CXX_STANDARD=17 \
                           -DCMAKE_PREFIX_PATH=/root/Kokkos_install/${{ matrix.exec_model }} \
                           -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
                           -G Ninja
