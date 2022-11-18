@@ -86,10 +86,10 @@ class CMakeBuild(build_ext):
             ]
 
         build_args = []
-        if os.getenv("OPENMP"):# and not self.backend:
+        if os.getenv('BACKEND')=="OPENMP":# and not self.backend:
             self.backend = "OPENMP"#os.getenv("BACKEND")
             configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
-            #print(self.backend)
+            print(self.backend)
         if os.getenv("ARCH") and not self.arch:
             self.arch = os.getenv("ARCH")
 
