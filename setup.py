@@ -18,11 +18,7 @@ import sys
 import subprocess
 import shutil
 from pathlib import Path
-from setuptools import setup, find_packages
-
-#if not os.getenv("READTHEDOCS"):
-
-from setuptools import Extension
+from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 
 class CMakeExtension(Extension):
