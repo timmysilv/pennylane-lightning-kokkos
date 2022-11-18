@@ -171,7 +171,7 @@ jobs:
             source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: |
-            PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH USE_OMP=1
+            PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH BACKEND=${{ matrix.exec_model }}
           
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
@@ -198,7 +198,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         #if: ${{ github.event_name == 'release' || github.ref == 'refs/heads/master' || steps.rc_build.outputs.match != ''}}
         with:
-          name: ${{ runner.os }}-wheels-${{ matrix.arch }}.zip
+          name: ${{ runner.os }}-wheels-${{ matrix.arch }}-${{ matrix.exec_model }}.zip
           path: ./wheelhouse/*.whl
 
   upload-pypi:
