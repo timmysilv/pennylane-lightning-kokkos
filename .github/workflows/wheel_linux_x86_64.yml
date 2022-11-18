@@ -10,7 +10,7 @@ env:
   OMP_NUM_THREADS: "2"
   READTHEDOCS: "0"
   USE_OMP: "1"       
-  BACKEND: "OPENMP"
+  OPENMP: 1
 
 on:
   pull_request:
