@@ -131,7 +131,7 @@ class CMakeBuild(build_ext):
 
         #Hard-coding for test
         #configure_args += ["-DKokkos_ENABLE_SERIAL=OFF"]
-        configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
+        #configure_args += ["-DKokkos_ENABLE_OPENMP=ON"]
 
         if not Path(self.build_temp).exists():
             os.makedirs(self.build_temp)
