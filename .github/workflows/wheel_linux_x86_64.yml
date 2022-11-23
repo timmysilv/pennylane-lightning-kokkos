@@ -23,14 +23,14 @@ jobs:
     with:
       event_name: ${{ github.event_name }}
 
-  build_dependencies:
-    needs: [set_wheel_build_matrix]
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        exec_model: ${{ fromJson(needs.set_wheel_build_matrix.outputs.exec_model) }}
-        kokkos_version: ${{ fromJson(needs.set_wheel_build_matrix.outputs.kokkos_version) }}
-        container_img: ["quay.io/pypa/manylinux2014_x86_64"]
+  #build_dependencies:
+  #  needs: [set_wheel_build_matrix]
+  #  strategy:
+  #    matrix:
+  #      os: [ubuntu-latest]
+  #      exec_model: ${{ fromJson(needs.set_wheel_build_matrix.outputs.exec_model) }}
+  #      kokkos_version: ${{ fromJson(needs.set_wheel_build_matrix.outputs.kokkos_version) }}
+  #      container_img: ["quay.io/pypa/manylinux2014_x86_64"]
 
     #name: Kokkos core & kernels (${{ matrix.exec_model }})
     #runs-on: ${{ matrix.os }}
@@ -106,7 +106,8 @@ jobs:
     #      cmake --install ./Build
 
   linux-wheels-x86-64:
-    needs: [set_wheel_build_matrix, build_dependencies]
+    needs: [set_wheel_build_matrix]
+    #, build_dependencies]
     strategy:
       fail-fast: false
       matrix:
@@ -179,7 +180,7 @@ jobs:
             pip install git+https://github.com/PennyLaneAI/pennylane.git@master
 
           CIBW_TEST_COMMAND: |
-            pl-device-test --device=lightning.kokkos --skip-ops -x --tb=short --no-flaky-report
+            pl-device-test --device lightning.kokkos --skip-ops -x --tb=short --no-flaky-report
 
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
