@@ -50,7 +50,8 @@ jobs:
 
       - name: Kokkos execution strategy
         id: exec_model
-        run: echo "::set-output name=exec_model::[\"SERIAL\",\"OPENMP\",\"THREADS\"]"
+        run: echo "::set-output name=exec_model::[\"THREADS\"]"
+        #run: echo "::set-output name=exec_model::[\"SERIAL\",\"OPENMP\",\"THREADS\"]"
 
       - name: Kokkos version
         id: kokkos_version
