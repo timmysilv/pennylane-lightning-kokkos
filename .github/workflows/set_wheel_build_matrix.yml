@@ -27,11 +27,11 @@ jobs:
 
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout PennyLane-Lightning
+      - name: Checkout PennyLane-Lightning-Kokkos
         uses: actions/checkout@v3
 
       - name: Python version
