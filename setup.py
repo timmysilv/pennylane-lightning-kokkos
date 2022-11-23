@@ -113,10 +113,7 @@ if not os.getenv("READTHEDOCS"):
                             f"-DCMAKE_LINKER={llvmpath}/bin/lld",
                     ] # Use clang instead of appleclang
                 # Disable OpenMP in M1 Macs
-                if os.environ.get("USE_OMP"):
-                    configure_args += []
-                else:
-                    configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"]
+                configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"]
             elif platform.system() == "Windows":
                 configure_args += ["-DKokkos_ENABLE_OPENMP=OFF"] # only build with Clang under Windows
             else:
