@@ -55,7 +55,7 @@ jobs:
           yum update -y && yum install -y docker
 
       - name: Install cibuildwheel
-        run: python3.9 -m pip install cibuildwheel~=2.11.0
+        run: python3.8 -m pip install cibuildwheel~=2.11.0
 
       - name: Build wheels
         env:
@@ -83,15 +83,15 @@ jobs:
           CIBW_BEFORE_TEST: |
             pip install git+https://github.com/PennyLaneAI/pennylane.git@master
 
-          CIBW_TEST_COMMAND: |
-            pl-device-test --device lightning.kokkos
+          #CIBW_TEST_COMMAND: |
+          #  pl-device-test --device=lightning.kokkos --skip-ops -x --tb=short --no-flaky-report
           
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
           CIBW_BUILD_VERBOSITY: 3
 
         run: | 
-          python3.9 -m cibuildwheel --output-dir wheelhouse
+          python3.8 -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions-ecosystem/action-regex-match@v2
         id: rc_build
