@@ -6,10 +6,8 @@ on:
   pull_request:
 
 env:
-  PY_VERSION: 3.8
+  PY_VERSION: 3.9
   GCC_VERSION: 10
-  SETUP_PY_VERSION: 4
-  CHECK_OUT_VERSION: 3 
   COVERAGE_FLAGS: "--cov=pennylane_lightning_kokkos --cov-report=term-missing --cov-report=xml:./coverage.xml --no-flaky-report -p no:warnings --tb=native"
   OMP_NUM_THREADS: "2"
 
@@ -26,12 +24,12 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
 
-      - uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2 # for codecov
 
@@ -54,12 +52,12 @@ jobs:
 
     steps:
       - name: Checkout PennyLane-Lightning-Kokkos
-        uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+        uses: actions/checkout@v3
         with:
           path: main
           fetch-depth: 2
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
@@ -99,12 +97,12 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
 
-      - uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2 # for codecov
 
@@ -125,12 +123,12 @@ jobs:
 
     steps:
       - name: Checkout PennyLane-Lightning-Kokkos
-        uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+        uses: actions/checkout@v3
         with:
           path: main
           fetch-depth: 2
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
@@ -170,12 +168,12 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
 
-      - uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2 # for codecov
 
@@ -196,12 +194,12 @@ jobs:
 
     steps:
       - name: Checkout PennyLane-Lightning-Kokkos
-        uses: actions/checkout@v${{ CHECK_OUT_VERSION }}
+        uses: actions/checkout@v3
         with:
           path: main
           fetch-depth: 2
 
-      - uses: actions/setup-python@v${{ SETUP_PY_VERSION }}
+      - uses: actions/setup-python@v4
         name: Install Python
         with:
           python-version: '${{ env.PY_VERSION }}'
