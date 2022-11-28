@@ -6,7 +6,7 @@ name: Wheel::Linux::x86_64
 # **Who does it impact**: Wheels to be uploaded to PyPI.
 
 env:
-  GCC_VERSION: 10
+  GCC_VERSION: 11
 
 on:
   pull_request:
@@ -71,11 +71,11 @@ jobs:
             pip install ninja cmake~=3.24.0
             yum clean all -y
             yum install centos-release-scl-rh -y
-            yum install devtoolset-10-gcc-c++ -y
-            source /opt/rh/devtoolset-10/enable -y
+            yum install devtoolset-11-gcc-c++ -y
+            source /opt/rh/devtoolset-11/enable -y
 
           CIBW_ENVIRONMENT: |
-            PATH=/opt/rh/devtoolset-10/root/usr/bin:$PATH BACKEND=${{ matrix.exec_model }}
+            PATH=/opt/rh/devtoolset-11/root/usr/bin:$PATH BACKEND=${{ matrix.exec_model }}
           
           # Testing of built wheels
           CIBW_TEST_REQUIRES: numpy~=1.21 scipy pytest pytest-cov pytest-mock flaky
