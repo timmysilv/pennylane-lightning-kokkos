@@ -154,7 +154,7 @@ jobs:
       - name: Install lightning.kokkos device
         run: |
           cd main
-          CXX=$(which g++-10) BACKEND="THREADS" python -m pip install -e . --verbose
+          CXX=$(which g++-11) BACKEND="THREADS" python -m pip install -e . --verbose
       - name: Run PennyLane-Lightning unit tests
         run: |
           cd main/
