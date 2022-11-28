@@ -1,3 +1,4 @@
+
 name: Testing (Linux)
 on:
   push:
@@ -6,6 +7,8 @@ on:
   pull_request:
 
 env:
+#  TF_VERSION: 2.11.0
+#  TORCH_VERSION: 1.13.0+cpu
   GCC_VERSION: 10
   COVERAGE_FLAGS: "--cov=pennylane_lightning_kokkos --cov-report=term-missing --cov-report=xml:./coverage.xml --no-flaky-report -p no:warnings --tb=native"
   OMP_NUM_THREADS: "2"
@@ -42,7 +45,6 @@ jobs:
             export OMP_PROC_BIND=false
             export OMP_PLACES=threads
             ./Build/pennylane_lightning_kokkos/src/tests/runner_kokkos
-
   pythontests_openmp:
     name: Python tests for OpenMP Kokkos Backend
     runs-on: ${{ matrix.os }}
@@ -71,18 +73,20 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
-      
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
           CXX=$(which g++-10) BACKEND="OPENMP" python -m pip install -e . --verbose
-
-      - name: Run PennyLane-Lightning unit tests
+      - name: Run PennyLane-Lightning-Kokkos unit tests
         run: |
           cd main/
           pytest tests/
           pl-device-test --device lightning.kokkos
-
   cpptests_threads:
     name: C++ tests (Linux) for Threads Kokkos backend
     runs-on: ${{ matrix.os }}
@@ -112,13 +116,12 @@ jobs:
             cmake . -BBuild -DKokkos_ENABLE_THREADS=ON -DPLKOKKOS_BUILD_TESTS=ON -DPLKOKKOS_ENABLE_SANITIZER=ON -DCMAKE_CXX_COMPILER="$(which g++-${{ env.GCC_VERSION }})"
             cmake --build ./Build
             ./Build/pennylane_lightning_kokkos/src/tests/runner_kokkos
-
   pythontests_threads:
     name: Python tests for Threads Kokkos Backend
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu-20.04]
 
     steps:
       - name: Checkout PennyLane-Lightning-Kokkos
@@ -141,17 +144,20 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
-
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
           CXX=$(which g++-10) BACKEND="THREADS" python -m pip install -e . --verbose
-      - name: Run PennyLane-Lightning unit tests
+      - name: Run PennyLane-Lightning-Kokkos unit tests
         run: |
           cd main/
           pytest tests/
           pl-device-test --device lightning.kokkos
-
   cpptests_serial:
     name: C++ tests (Linux) for Serial Kokkos backend
     runs-on: ${{ matrix.os }}
@@ -181,7 +187,6 @@ jobs:
             cmake . -BBuild -DPLKOKKOS_BUILD_TESTS=ON -DPLKOKKOS_ENABLE_SANITIZER=ON -DCMAKE_CXX_COMPILER="$(which g++-${{ env.GCC_VERSION }})"
             cmake --build ./Build
             ./Build/pennylane_lightning_kokkos/src/tests/runner_kokkos
-
   pythontests_serial:
     name: Python tests for Serial Kokkos Backend
     runs-on: ${{ matrix.os }}
@@ -210,11 +215,16 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
           CXX=$(which g++-10) BACKEND="SERIAL" python -m pip install -e . --verbose
-      - name: Run PennyLane-Lightning unit tests
+      - name: Run PennyLane-Lightning-Kokkos unit tests
         run: |
           cd main/
           pytest tests/
