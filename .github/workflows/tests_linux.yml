@@ -7,8 +7,6 @@ on:
   pull_request:
 
 env:
-#  TF_VERSION: 2.11.0
-#  TORCH_VERSION: 1.13.0+cpu
   PY_VERSION: 3.8
   UBUNTU_VERSION: [ubuntu-20.04]
   GCC_VERSION: 10
