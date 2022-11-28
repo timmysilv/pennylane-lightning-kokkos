@@ -73,11 +73,11 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
-      - name: Install ML libraries for interfaces
-        run: |
-          pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
-          pip install --upgrade "jax[cpu]"  # This also installs jaxlib
-          pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
@@ -146,11 +146,11 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
-      - name: Install ML libraries for interfaces
-        run: |
-          pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
-          pip install --upgrade "jax[cpu]"  # This also installs jaxlib
-          pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
@@ -219,11 +219,11 @@ jobs:
           python -m pip install pytest pytest-mock flaky
           pip uninstall pennylane -y
           pip install git+https://github.com/PennyLaneAI/pennylane.git
-      - name: Install ML libraries for interfaces
-        run: |
-          pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
-          pip install --upgrade "jax[cpu]"  # This also installs jaxlib
-          pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
+      #- name: Install ML libraries for interfaces
+      #  run: |
+      #    pip install --upgrade torch==${{ env.TORCH_VERSION }} -f https://download.pytorch.org/whl/cpu/torch_stable.html
+      #    pip install --upgrade "jax[cpu]"  # This also installs jaxlib
+      #    pip install --upgrade tensorflow~=${{ env.TF_VERSION }}
       - name: Install lightning.kokkos device
         run: |
           cd main
