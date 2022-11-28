@@ -9,8 +9,7 @@ env:
   PY_VERSION: 3.8
   GCC_VERSION: 10
   SETUP_PY_VERSION: 4
-  CHECK_OUT_VERSION: 3
-  CANCEL_WORKFLOW_ACTION_VERSION: 0.11.0 
+  CHECK_OUT_VERSION: 3 
   COVERAGE_FLAGS: "--cov=pennylane_lightning_kokkos --cov-report=term-missing --cov-report=xml:./coverage.xml --no-flaky-report -p no:warnings --tb=native"
   OMP_NUM_THREADS: "2"
 
@@ -23,7 +22,7 @@ jobs:
         os: [ubuntu-20.04]
     steps:
       - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@${{ CANCEL_WORKFLOW_ACTION_VERSION }}
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
@@ -96,7 +95,7 @@ jobs:
         os: [ubuntu-20.04]
     steps:
       - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@${{ CANCEL_WORKFLOW_ACTION_VERSION }}
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
@@ -167,7 +166,7 @@ jobs:
         os: [ubuntu-20.04]
     steps:
       - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@${{ CANCEL_WORKFLOW_ACTION_VERSION }}
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
