@@ -32,7 +32,7 @@ jobs:
         arch: [x86_64]
         cibw_build: ${{ fromJson(needs.set_wheel_build_matrix.outputs.python_version) }}
         exec_model: ${{ fromJson(needs.set_wheel_build_matrix.outputs.exec_model) }}
-        container_img: ["quay.io/pypa/manylinux2014_x86_64"]
+        container_img: ["quay.io/pypa/manylinux_2_28_x86_64"]
 
     name: ${{ matrix.os }} (Python ${{ fromJson('{"cp38-*":"3.8", "cp39-*":"3.9","cp310-*":"3.10","cp311-*":"3.11" }')[matrix.cibw_build] }} ${{ matrix.exec_model }})
     runs-on: ${{ matrix.os }}
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies (CentOS)
-        if: ${{ (matrix.container_img == 'quay.io/pypa/manylinux2014_x86_64') }}
+        if: ${{ (matrix.container_img == 'quay.io/pypa/manylinux_2_28_x86_64') }}
         run: |
           # Reduce wait time for repos not responding
           cat /etc/yum.conf | sed "s/\[main\]/\[main\]\ntimeout=5/g" > /etc/yum.conf
@@ -86,7 +86,7 @@ jobs:
           CIBW_TEST_COMMAND: |
             pl-device-test --device=lightning.kokkos --skip-ops -x --tb=short --no-flaky-report
           
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
 
           CIBW_BUILD_VERBOSITY: 3
 
