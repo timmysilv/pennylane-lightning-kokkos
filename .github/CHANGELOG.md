@@ -1,10 +1,29 @@
-# Release 0.27.0
+# Release 0.28.0
 
  
 ### New features since last release
 
  * Add X86-64 Linux wheels for lightning.kokkos on CPU.
  [(#14)](https://github.com/PennyLaneAI/pennylane-lightning-kokkos/pull/14)
+
+### Breaking changes
+
+### Improvements
+
+### Documentation
+
+### Bug fixes
+
+### Contributors
+
+This release contains contributions from (in alphabetical order):
+
+Shuli Shu
+
+---
+# Release 0.27.0
+
+### New features since last release
 
  * Add probability support.
  [(#11)](https://github.com/PennyLaneAI/pennylane-lightning-kokkos/pull/11)
